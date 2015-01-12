@@ -1,0 +1,13 @@
+application: bafghahi-website
+version: 1-0-alpha
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: .*
+  script: pw_django.wsgi.application
+
+libraries:
+- name: django
+  version: latest
