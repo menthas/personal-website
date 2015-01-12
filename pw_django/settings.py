@@ -1,3 +1,9 @@
+import os
+import appengine_toolkit
+
+# useful variables
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 # Django settings for pw_django project.
 
 DEBUG = True
@@ -10,15 +16,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
-    }
+    'default': appengine_toolkit.config()
 }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -61,7 +59,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -79,7 +77,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -89,7 +87,15 @@ SECRET_KEY = 'b)86dh4do^%_kap&0(!(37y3aib1$y5r+w5m_1p6lh8%la4dbq'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'zinnia.context_processors.version',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,7 +114,8 @@ ROOT_URLCONF = 'pw_django.urls'
 WSGI_APPLICATION = 'pw_django.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like "/home/html/django_templates" or
+    # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
@@ -120,10 +127,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.comments',
+    'tagging',
+    'mptt',
+    'zinnia',
+    'appengine_toolkit',
+    'django.contrib.admindocs',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -156,3 +166,10 @@ LOGGING = {
         },
     }
 }
+
+APPENGINE_TOOLKIT = {
+    'APP_YAML': os.path.join(BASE_DIR, 'app.yaml'),
+    'BUCKET_NAME': 'bafghahi-pw-uploads',
+}
+DEFAULT_FILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
+STATICFILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'

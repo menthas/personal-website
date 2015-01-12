@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
+from django.contrib import admin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+# urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'pw_django.views.home', name='home'),
     # url(r'^pw_django/', include('pw_django.foo.urls')),
@@ -14,4 +15,12 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+# )
+
+admin.autodiscover()
+urlpatterns = patterns(
+    '',
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^weblog/', include('zinnia.urls')),
+    url(r'^comments/', include('django.contrib.comments.urls')),
 )
