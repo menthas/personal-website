@@ -5,8 +5,8 @@ import appengine_toolkit
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Django settings for pw_django project.
-DEV_ENV = os.getenv('PYTHON_DEV_ENV', 0) == 1
-DEBUG = DEV_ENV
+DEV_ENV = os.getenv('PYTHON_DEV_ENV', 0) == '1'
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -15,7 +15,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if (DEV_ENV):
+if not DEV_ENV:
     DATABASES = {
         'default': appengine_toolkit.config()
     }
