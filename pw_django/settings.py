@@ -5,8 +5,8 @@ import appengine_toolkit
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Django settings for pw_django project.
-
-DEBUG = True
+DEV_ENV = os.getenv('PYTHON_DEV_ENV', 0) == 1
+DEBUG = DEV_ENV
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -15,9 +15,19 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': appengine_toolkit.config()
-}
+if (DEV_ENV):
+    DATABASES = {
+        'default': appengine_toolkit.config()
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': os.path.join(BASE_DIR, 'mysql_dev.cnf')
+            }
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

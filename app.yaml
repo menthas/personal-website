@@ -1,5 +1,5 @@
 application: bafghahi-website
-version: 1-1-alpha
+version: 1-1-alpha-1devel
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -21,3 +21,4 @@ libraries:
 env_variables:
   DJANGO_SETTINGS_MODULE: 'pw_django.settings'
   DATABASE_URL: 'mysql://root:password@bafghahi-website:main/blog'
+  PYTHON_DEV_ENV: 0
