@@ -18,9 +18,6 @@ libraries:
 - name: MySQLdb
   version: "latest"
 
-builtins:
-- django_wsgi: on
-
 env_variables:
   DJANGO_SETTINGS_MODULE: 'pw_django.settings'
   DATABASE_URL: 'mysql://root:password@bafghahi-website:main/blog'
