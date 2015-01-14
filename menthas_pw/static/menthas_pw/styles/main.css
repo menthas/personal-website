@@ -1,0 +1,26 @@
+html, body {
+    margin:0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background-color: #000;
+}
+
+.invisible {
+    display: none;
+}
+
+.form-group.required .control-label:after { 
+   content:"*";
+   color:red;
+}
+
+.about_image {
+    margin-top: 20px;
+}
+
+#nav_list {
+    position: relative;
+}

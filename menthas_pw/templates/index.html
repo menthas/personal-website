@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>take1</title>
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="{% static 'menthas_pw/styles/main.css' %}">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -146,23 +147,23 @@
     </div> <!-- end of projects modal -->
     <!-- end of modals -->
     
-    <img src="images/31dec2014_1.jpg" alt="init" class="invisible" id="init_img"/>
-    <img src="images/clouds.jpg" class="invisible" id="clouds"/>
-    <img src="images/31dec2014_2.jpg" alt="live" class="invisible" id="live_img"/>
-    <img src="images/linkedin_64_black.png" class="invisible" id="icon_linkedin"/>
-    <img src="images/github_64_black.png" class="invisible" id="icon_github"/>
-    <img src="images/facebook_128_black.png" class="invisible" id="icon_facebook"/>
+    <img src="{% static 'menthas_pw/images/31dec2014_1.jpg' %}" alt="init" class="invisible" id="init_img"/>
+    <img src="{% static 'menthas_pw/images/clouds.jpg' %}" class="invisible" id="clouds"/>
+    <img src="{% static 'menthas_pw/images/31dec2014_2.jpg' %}" alt="live" class="invisible" id="live_img"/>
+    <img src="{% static 'menthas_pw/images/linkedin_64_black.png' %}" class="invisible" id="icon_linkedin"/>
+    <img src="{% static 'menthas_pw/images/github_64_black.png' %}" class="invisible" id="icon_github"/>
+    <img src="{% static 'menthas_pw/images/facebook_128_black.png' %}" class="invisible" id="icon_facebook"/>
 
     <!-- Libraries & dependencies -->
-    <script src="js/jquery.js"></script>
+    <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <script src="js/paperjs_blur.js"></script>
-    <script src="js/underscore.js"></script>
-    <script src="js/paper-full.min.js"></script>
+    <script src="{% static 'menthas_pw/js/paperjs_blur.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/underscore.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/paper-full.min.js' %}"></script>
     <!-- Code for page logic -->
-    <script src="js/content_logic.js"></script>
+    <script src="{% static 'menthas_pw/js/content_logic.js' %}"></script>
     <!-- Code to render the canvas -->
-    <script src="js/menu_definitions.js"></script>
-    <script src="js/canvas_lib.js" type="text/paperscript" data-paper-canvas="main_canvas"></script>
+    <script src="{% static 'menthas_pw/js/menu_definitions.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/canvas_lib.js' %}" type="text/paperscript" data-paper-canvas="main_canvas"></script>
   </body>
 </html>

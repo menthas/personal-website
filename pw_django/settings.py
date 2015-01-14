@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'zinnia',
     'appengine_toolkit',
     'django.contrib.admindocs',
+    'menthas_pw',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
