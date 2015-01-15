@@ -1,0 +1,212 @@
+{% load i18n staticfiles %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+  <head>
+    <title>{% block title %}{% endblock title %}{% block title-page %}{% endblock title-page %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="cache-control" content="public" />
+    <meta name="robots" content="follow, all" />
+    <meta name="language" content="{{ LANGUAGE_CODE }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{% block meta-description %}{% trans "Blog of Behrooz Afghahi!" %}{% endblock meta-description %}{% block meta-description-page %}{% endblock meta-description-page %}" />
+    <meta name="keywords" content="{% block meta-keywords %}behrooz, afghahi, personal, django, blog, zinnia{% endblock meta-keywords %}" />
+    <meta name="author" content="menthas" />
+    {% block meta %}{% endblock meta %}
+    <link rel="pingback" href="/xmlrpc/" />
+    <link rel="shortcut icon" href="{% static "menthas_pw/favicon.ico" %}" />
+    <link rel="home" href="{% url 'zinnia_entry_archive_index' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'menthas_pw/styles/clean-blog.css' %}">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" type="text/css" media="screen, projection" href="{% static "zinnia/css/ie.css" %}" />
+    <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% block link %}{% endblock link %}
+    {% block script %}{% endblock script %}
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'menthas_pw.views.index' %}">Home</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/weblog" title="Go to Home">Blog Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'zinnia_entry_latest_feed' %}" title="{% trans "RSS Feed of latest entries" %}" class="feeds">
+                          {% trans "RSS Feed" %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'zinnia_sitemap' %}" title="{% trans "Sitemap" %}" class="sitemap">
+                          {% trans "Sitemap" %}
+                        </a>
+                    </li>
+                    <li>
+                      <form method="get" action="{% url 'zinnia_entry_search' %}" class="form-inline">
+                        <div class="form-group" style="padding: 15px">
+                          <div class="input-group">
+                            <input type="text" placeholder="{% trans "Search ..." %}" name="pattern" class="form-control input-sm"/>
+                          </div>
+                        </div>
+                      </form>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('{% static "menthas_pw/images/blog_bg2.jpg" %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Information</h1>
+                        <hr class="small">
+                        <span class="subheading">A personal blog about data, AI and web</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+            {% block breadcrumbs %} {% endblock breadcrumbs %}
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-7 col-lg-offset-1 col-md-7 col-md-offset-1">
+              {% block content %}
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                            Man must explore, and this is exploration at its greatest
+                        </h2>
+                        <h3 class="post-subtitle">
+                            Problems look mighty small from 150 miles up
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+                </div>
+                <hr>
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
+                        </h2>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 18, 2014</p>
+                </div>
+                <hr>
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                            Science has not yet mastered prophecy
+                        </h2>
+                        <h3 class="post-subtitle">
+                            We predict too much for the next year and yet far too little for the next ten.
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</p>
+                </div>
+                <hr>
+                <div class="post-preview">
+                    <a href="post.html">
+                        <h2 class="post-title">
+                            Failure is not an option
+                        </h2>
+                        <h3 class="post-subtitle">
+                            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
+                        </h3>
+                    </a>
+                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on July 8, 2014</p>
+                </div>
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    <li class="next">
+                        <a href="#">Older Posts &rarr;</a>
+                    </li>
+                </ul>
+              {% endblock content %}
+            </div>
+            <div class="col-lg-3 col-md-3">
+              {% block sidebar %}{% endblock sidebar %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; bafghahi.com 2014</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/clean-blog.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

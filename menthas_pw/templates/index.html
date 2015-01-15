@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>take1</title>
+    <link rel="shortcut icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'menthas_pw/styles/main.css' %}">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="canvas_container">
+        <canvas id="main_canvas" data-paper-resize="true"></canvas>
+    </div>
+
+    <!-- Modals -->
+    <!-- Contact Form modal -->
+    <div class="modal fade needs_init_modal" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true"
+         data-url="{% url 'menthas_pw.views.contact' %}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="contactModalLabel">Contact Me</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div> <!-- end of contact form modal -->
+
+    <!-- About Me modal -->
+    <div class="modal fade needs_init_modal" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true"
+         data-url="{% url 'menthas_pw.views.about' %}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="aboutModalLabel">About</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div> <!-- end of about me modal -->
+
+    <!-- Projects modal -->
+    <div class="modal fade needs_init_modal" id="projectsModal" tabindex="-1" role="dialog" aria-labelledby="projectsModalLabel" aria-hidden="true"
+         data-url="{% url 'menthas_pw.views.projects' %}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="projectsModalLabel">Projects</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div> <!-- end of projects modal -->
+    <!-- end of modals -->
+    
+    <img src="{% static 'menthas_pw/images/31dec2014_1.jpg' %}" alt="init" class="invisible" id="init_img"/>
+    <img src="{% static 'menthas_pw/images/clouds.jpg' %}" class="invisible" id="clouds"/>
+    <img src="{% static 'menthas_pw/images/31dec2014_2.jpg' %}" alt="live" class="invisible" id="live_img"/>
+    <img src="{% static 'menthas_pw/images/linkedin_64_black.png' %}" class="invisible" id="icon_linkedin"/>
+    <img src="{% static 'menthas_pw/images/github_64_black.png' %}" class="invisible" id="icon_github"/>
+    <img src="{% static 'menthas_pw/images/facebook_128_black.png' %}" class="invisible" id="icon_facebook"/>
+
+    <!-- Libraries & dependencies -->
+    <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'menthas_pw/js/paperjs_blur.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/underscore.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/paper-full.min.js' %}"></script>
+    <!-- Code for page logic -->
+    <script src="{% static 'menthas_pw/js/content_logic.js' %}"></script>
+    <!-- Code to render the canvas -->
+    <script src="{% static 'menthas_pw/js/menu_definitions.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/canvas_lib.js' %}" type="text/paperscript" data-paper-canvas="main_canvas"></script>
+  </body>
+</html>

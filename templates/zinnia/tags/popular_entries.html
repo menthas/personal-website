@@ -1,0 +1,10 @@
+{% load i18n %}
+<div class="list-group no-margin">
+  {% for entry in entries %}
+    <a href="{{ entry.get_absolute_url }}" class="list-group-item" title="{{ entry.title }}" rel="bookmark">
+        <i class="fa fa-star"></i> {{ entry.title }}
+    </a>
+  {% empty %}
+    {% trans "No entries yet." %}
+  {% endfor %}
+</div>

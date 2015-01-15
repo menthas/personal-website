@@ -56,7 +56,10 @@ _.extend(MenuGridItem.prototype, {
 
     eventHandler: function(event) {
         if (this.options.showModal) {
-            $('#' + this.options.showModal).modal('show');
+            $modal = $('#' + this.options.showModal);
+            $modal.find('.modal-body').load($modal.data('url'), function() {
+                $modal.modal('show');
+            })
         } else if (this.options.link) {
             window.location = this.options.link;
         }
