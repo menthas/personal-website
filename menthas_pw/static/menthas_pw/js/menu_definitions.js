@@ -37,12 +37,13 @@ var menu_definition = [
     { // ?????
         id: 'blog',
         name: 'Blog',
+        link: '/weblog',
         randomColor: true,
     },
     { // link to pdf
         id: 'resume',
         name: 'Résumé',
-        link: './assets/resume_latest.pdf',
+        link: '/static/menthas_pw/assets/resume_latest.pdf',
         randomColor: true,
     },
     { // simgple form

@@ -24,30 +24,34 @@ $(function () {
         });
     });
 
-    $('#projectsModal').modal('show');
+    // $('#projectsModal').modal('show');
 
-    var $projects_nav = $('#projects_nav');
-    var $nav_list = $('#nav_list');
-    $('.list-group a').click(function() {
-        $projects_nav.animate({
-            scrollTop: $($(this).attr('href')).offset().top
-        }, 1000);
+    $('#projectsModal').on('shown.bs.modal', function() {
+        var $projects_nav = $('#projects_nav');
+        var $nav_list = $('#nav_list');
+        $('.list-group a').click(function() {
+            $projects_nav.animate({
+                scrollTop: $($(this).attr('href')).offset().top
+            }, 1000);
+        });
+        $(this).scroll(function() {
+            var top = $projects_nav.offset().top;
+            if (top > 15) {
+                $nav_list.css('top', 0);
+            } else if (top >= 0) {
+                $nav_list.css('top', 15 - top);
+            } else {
+                $nav_list.css('top', (-1 * top) + 15);
+            }
+        });
     });
-    $('#projectsModal').scroll(function() {
-        var top = $projects_nav.offset().top;
-        if (top > 15) {
-            $nav_list.css('top', 0);
-        } else if (top >= 0) {
-            $nav_list.css('top', 15 - top);
-        } else {
-            $nav_list.css('top', (-1 * top) + 15);
-        }
-    })
-
-    $('#reveal_email').click(function() {
-        $(this).hide();
-        $("#contact_placeholder").html(shift_cipher(email, shift_array))
-            .removeClass("hide");
-        return false;
+    
+    $('#contactModal').on('shown.bs.modal', function () {
+        $('#reveal_email').click(function() {
+            $(this).hide();
+            $("#contact_placeholder").html(shift_cipher(email, shift_array))
+                .removeClass("hide");
+            return false;
+        });
     });
 });

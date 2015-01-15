@@ -1,11 +1,11 @@
 import os
 import appengine_toolkit
 
-# useful variables
+# some useful vars used in the application
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DEV_ENV = 'Google App Engine' not in os.getenv('SERVER_SOFTWARE', '')
 
 # Django settings for pw_django project.
-DEV_ENV = os.getenv('PYTHON_DEV_ENV', 0) == '1'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -128,6 +128,7 @@ TEMPLATE_DIRS = (
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'templates')
 )
 
 INSTALLED_APPS = (
@@ -139,6 +140,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.comments',
+    'widget_tweaks',
     'tagging',
     'mptt',
     'zinnia',
