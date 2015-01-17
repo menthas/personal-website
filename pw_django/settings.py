@@ -1,23 +1,33 @@
 import os
 import appengine_toolkit
 
-# useful variables
+# some useful vars used in the application
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+DEV_ENV = 'Google App Engine' not in os.getenv('SERVER_SOFTWARE', '')
 
 # Django settings for pw_django project.
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Behrooz Afghahi', 'behrooz.afghahi@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': appengine_toolkit.config()
-}
+if not DEV_ENV:
+    DATABASES = {
+        'default': appengine_toolkit.config()
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': os.path.join(BASE_DIR, 'mysql_dev.cnf')
+            }
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -118,6 +128,7 @@ TEMPLATE_DIRS = (
     # "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'templates')
 )
 
 INSTALLED_APPS = (
@@ -129,11 +140,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.comments',
+    'contact_form',
+    'widget_tweaks',
     'tagging',
     'mptt',
     'zinnia',
     'appengine_toolkit',
     'django.contrib.admindocs',
+    'menthas_pw',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
@@ -173,3 +187,5 @@ APPENGINE_TOOLKIT = {
 }
 DEFAULT_FILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
 STATICFILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
+DEFAULT_FROM_EMAIL = 'no-reply@bafghahi.com'
+DEFAULT_FROM_EMAIL

@@ -20,6 +20,9 @@ from django.contrib import admin
 admin.autodiscover()
 urlpatterns = patterns(
     '',
+    url(r'^contact/', include('contact_form.urls')),
+    url(r'^$', include('menthas_pw.urls')),
+    url(r'^site/', include('menthas_pw.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')),

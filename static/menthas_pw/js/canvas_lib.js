@@ -1,26 +1,26 @@
 /**
- * Menu item object
+ * Menu item object - Doesn't use paperJS specific classes/functions
  */
 function MenuGridItem() {
     this._defaults = {
         id: null,
         name: 'Menu Item',
-        randomColor: false,
-        inheritColor: false,
+        randomColor: false, // Choose a random color each time
+        inheritColor: false, // inherit color from parent element
         bgImage: null,
-        bgImageScroll: false,
+        bgImageScroll: false, // scroll the bg horizontally
         bgImageScrollSpeed: 0.1,
-        bgImageFit: false,
-        icon: null,
+        bgImageFit: false, // resize image to have the same height as the tile
+        icon: null, // show this icon instead of 'name'
         iconRatio: 0.55,
-        color: null,
-        verticalPlacement: null,
+        color: null, // background color
+        verticalPlacement: null, // vertical placement of the item in range [0, 1]
         fontSize: 16,
         fontWeight: "bold",
         fontFamily: "Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif",
         fontColor: "#000",
-        showModal: null,
-        link: null,
+        showModal: null, // show a modal on click (must contain a valid DOM ID)
+        link: null, // link to this address on click
         linkTarget: 'blank',
     }
     this.id = null;
@@ -43,6 +43,10 @@ _.extend(MenuGridItem.prototype, {
         this.id = this.options.id;
     },
 
+    /**
+     * return a paperjs compatible point in the grid
+     * @return {x, y}
+     */
     point: function() {
         if (this.x != null && this.y != null)
             return {x: this.x, y:this.y};
@@ -50,13 +54,22 @@ _.extend(MenuGridItem.prototype, {
             return null;
     },
 
+    /**
+     * Add a child to this grid item
+     */
     addChild: function(child) {
         this.children.push(child);
     },
 
+    /**
+     * Define what happens on click
+     */
     eventHandler: function(event) {
         if (this.options.showModal) {
-            $('#' + this.options.showModal).modal('show');
+            $modal = $('#' + this.options.showModal);
+            $modal.find('.modal-body').load($modal.data('url'), function() {
+                $modal.modal('show');
+            });
         } else if (this.options.link) {
             window.location = this.options.link;
         }
@@ -64,14 +77,14 @@ _.extend(MenuGridItem.prototype, {
 });
 
 /**
- * Menu grid object
+ * Menu grid object - Doesn't use paperJS specific classes/functions
  */
 function MenuGrid() {
     this.grid = [];
     this.all_items = [];
-    this.neighbors = [[-1, 0], [1, 0]];
-    this.upward_neighbors = [[0, 1]];
-    this.downward_neighbors = [[0, -1]];
+    this.neighbors = [[-1, 0], [1, 0]]; // left and right neighbors
+    this.upward_neighbors = [[0, 1]]; // bottom
+    this.downward_neighbors = [[0, -1]]; // top
     this.bounds = {
         minx: 0,
         miny: 0,
@@ -81,6 +94,10 @@ function MenuGrid() {
 }
 
 _.extend(MenuGrid.prototype, {
+    /**
+     * Adds `item` in the given position if it's vacant.
+     * @return true on success, false on failure
+     */
     addItem: function(x, y, item) {
         if (this.grid[x] == undefined)
             this.grid[x] = [];
@@ -94,22 +111,40 @@ _.extend(MenuGrid.prototype, {
         return true;
     },
 
+    /**
+     * Is this position vacant ?
+     * @return bool
+     */
     isFilled: function(x, y) {
         if (this.grid[x] == undefined || this.grid[x][y] == undefined || this.grid[x][y] == null)
             return false;
         return true;
     },
 
+    /**
+     * Is this position in the grid an upward triangle ?
+     * @return bool
+     */
     isPositionUpward: function(x, y) {
         return (x + y) % 2 == 0
     },
 
+    /**
+     * return the grid element at position (x, y)
+     * @return MenuGridItem if position is filled, null o.w.
+     */
     getItem: function(x, y) {
         if (this.grid[x] == undefined || this.grid[x][y] == undefined || this.grid[x][y] == null)
             return null;
         return this.grid[x][y];
     },
 
+    /**
+     * Returns the closest free space to (x, y). This method will traverse the
+     * neighboring elements until it finds an empty grid space.
+     * NOTE: closeness here is defined by hierarchy not cartesian distance
+     * @return {x, y}
+     */
     getClosestFreeSpace: function(x, y) {
         if (!this.isFilled(x, y))
             return {x: x, y: y};
@@ -132,6 +167,13 @@ _.extend(MenuGrid.prototype, {
         }
     },
 
+    /**
+     * get the immediate neighbor of (x,y) that is filled.
+     * @param x
+     * @param y
+     * @param upward: is this position and upward triangle ?
+     * @return {x, y, handle} where handle shows which neighbor was selected
+     */
     getFilledNeighbor: function(x, y, upward) {
         if (this.isFilled(x-1, y))
             return {x: x-1, y: y, handle: 2};
@@ -145,13 +187,23 @@ _.extend(MenuGrid.prototype, {
             return null;
     },
 
-     getFilledNeighborObject: function(item) {
+    /**
+     * get the immediate neighbor of `item` that is filled.
+     * @param MenuGridItem
+     * @return MenuGridItem
+     */
+    getFilledNeighborObject: function(item) {
         var pos = this.getFilledNeighbor(item.x, item.y, item.upward);
         if (pos != null)
             return this.getItem(pos.x, pos.y);
         return pos;
     },
 
+    /**
+     * Updates the grid bounds, used to make searching faster
+     * @param x
+     * @param y
+     */
     _updateBounts: function(x, y) {
         this.bounds.minx = Math.min(x, this.bounds.minx);
         this.bounds.miny = Math.min(y, this.bounds.miny);
@@ -159,13 +211,16 @@ _.extend(MenuGrid.prototype, {
         this.bounds.maxy = Math.min(y, this.bounds.maxy);
     },
 
+    /**
+     * Prints the grid as a list, usefull for debugging
+     */
     printGrid: function() {
         console.log(this.grid);
     }
 });
 
 /**
- * Rendering/Presentation logic
+ * Rendering/Presentation logic - Uses PaperJs classes/functions
  */
 function Representation() {
     this.image_center_ratio = 0.028125;
@@ -177,6 +232,7 @@ function Representation() {
     this.text_in_triangle_offset_downward = -0.01;
     this.image_in_triangle_offset_upward = 0.03;
     this.image_in_triangle_offset_downward = -0.025;
+    this.base_size = new Rectangle(0, 0, 1600, 900);
     this.show_text_on_hover = false;
     this.init_img;
     this.live_img;
@@ -187,13 +243,17 @@ function Representation() {
 }
 
 _.extend(Representation.prototype, {
+    /**
+     * Initializes the scene, adding the images, initial triangle, shadow,
+     * mouse over events, etc.
+     */
     init: function() {
         this.init_img = new Raster('init_img');
         this.init_img.position = view.center;
         var tile0 = new Path.RegularPolygon({
             center: view.center + this.getCenterOffset(),
             sides: 3,
-            radius: 80,
+            radius: (this.init_img.bounds.width / this.base_size.width) * 80,
             fillColor: 'white',
             strokeColor: new Color(0, 0, 0, 0.3),
             strokeWidth: 1
@@ -239,8 +299,13 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * rescales the scene based on the browser windows size
+     * @param  resize event
+     */
     rescale: function(event) {
         var scale = view.size.width / this.init_img.bounds.width;
+        // if the height determines the scaling use that
         if (this.init_img.bounds.height * scale < view.size.height) {
             scale = view.size.height / this.init_img.bounds.height;
         }
@@ -251,6 +316,10 @@ _.extend(Representation.prototype, {
         var center_offset = this.tiles.position - this.init_tile.item.position;
         this.tiles.position = center_offset + view.center + this.getCenterOffset();
 
+        /*
+         * since the live_img might not be shown at this point we need to use
+         * its own scaling factor
+         */
         if (this.live_img) {
             scale = view.size.width / this.live_img.bounds.width;
             if (this.live_img.bounds.height * scale < view.size.height) {
@@ -270,10 +339,18 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * the background image is not centered, this method returns the offset based
+     * on screen size.
+     * @return Point
+     */
     getCenterOffset: function() {
         return new Point(-this.init_img.bounds.width * this.image_center_ratio, 0);
     },
 
+    /**
+     * Opens the grid based menu by starting the animation
+     */
     openMenu: function() {
         this.init_img.opacity = 0;
 
@@ -289,19 +366,20 @@ _.extend(Representation.prototype, {
             this.image_opacity_duration;
         var _this = this;
         this.live_img.onFrame = function (event) {
+            // do nothing at first, wait
             if (event.count <= _this.initial_animation_halt)
                 return;
 
+            // blink the live_img
             if (event.count <= _this.initial_animation_halt + _this.image_flash_duration) {
                 if (event.count % 15 < 13) {
                     _this.live_img.opacity = 0;
                 } else {
                     _this.live_img.opacity = 1;
                 }
-            } else if (event.count <= total_animation_len) {
-
+            } else if (event.count <= total_animation_len) { // bring the image into view
                 this.opacity += 1 / _this.image_opacity_duration;
-            } else { // start rendering menue
+            } else { // start rendering the menu
                 menu_definition = _.shuffle(menu_definition);
                 for (var i=0; i<menu_definition.length; i++) {
                     _this.drawMenuItem(menu_definition[i], _this.init_tile);
@@ -312,6 +390,11 @@ _.extend(Representation.prototype, {
         
     },
 
+    /**
+     * Draw/animate a single branch of the menu (the item and its children)
+     * @param  the item to render
+     * @param  parent item
+     */
     drawMenuItem: function(item, parent_item) {
         var pos = this.grid.getClosestFreeSpace(parent_item.x, parent_item.y);
         var upward = this.grid.isPositionUpward(pos.x, pos.y);
@@ -329,6 +412,14 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * Clone a triangle to form a new triangle and animate the new triangle
+     * to it's position (left, right, top or bottom).
+     * @param  parent_item: the item we're extending from
+     * @param  handle: the handle that will be used (determines the side)
+     * @param  skip: skip this many milliseconds before starting the animation
+     * @param  onFinish: function to be called when the animation is over
+     */
     cloneTriangle: function(parent_item, handle, skip, onFinish) {
         var parent = parent_item.item;
         var clone = parent.clone();
@@ -366,6 +457,11 @@ _.extend(Representation.prototype, {
         return clone;
     },
 
+    /**
+     * Clone a path's segments
+     * @param Path
+     * @return array of cloned segments
+     */
     cloneSegments: function(path) {
         var segments = [];
         for (var i=0; i<path.segments.length; i++) {
@@ -374,12 +470,18 @@ _.extend(Representation.prototype, {
         return segments;
     },
 
+    /**
+     * Draw MenuGridItem options
+     * @param  menu_item
+     */
     drawOptions: function(menu_item) {
+        // color
         var color = menu_item.options.color;
         if (menu_item.options.randomColor) {
+            // @todo a better random color generator ?
             color = new Color({
                 hue: _.random(0, 360),
-                saturation: 0.3,
+                saturation: 0.4,
                 brightness: (Math.random() + 0.5) / 1.5,
             })
         } else if (menu_item.options.inheritColor) {
@@ -387,10 +489,12 @@ _.extend(Representation.prototype, {
         }
         menu_item.color = color;
         menu_item.item.fillColor = color;
+        // end of color
 
         if (_.isNull(color) && menu_item.options.bgImage)
             this.drawBackgroundImage(menu_item);
 
+        // item icon or text
         var desc;
         if (menu_item.options.icon) {
             var icon = new Raster({
@@ -424,9 +528,15 @@ _.extend(Representation.prototype, {
                 desc.opacity = 0;
             }
         }
+        // end of icon or text
 
     },
 
+    /**
+     * remove a triangle from the scene (undo the animation)
+     * @param  triangle to remove
+     * @param  onFinish: called when the animation is over
+     */
     removeTriangle: function(triangle, onFinish) {
         var _this = this;
         triangle.onFrame = function(event) {
@@ -445,6 +555,11 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * Returns the midpoint of a triangle.
+     * @param  Path with 3 segments
+     * @return Point
+     */
     triangleMidpoint: function(triangle) {
         return (
             triangle.segments[0].point +
@@ -453,6 +568,19 @@ _.extend(Representation.prototype, {
         ) / 3;
     },
 
+    /**
+     * converts a handle value to the triangle side. there are some assumption
+     * here.
+     *  1. The triangle are upward or downward and not rotated
+     *  2. a handle is a universal number attached to a segment of a triangle as follow:
+     *         . (0)
+     *    (2) . . (1)
+     *  3. a side is the reference to a segment in the Path that forms the triangle.
+     *     This can change since we transform triangles to create clones. 
+     * @param  MenuGridItem
+     * @param  int
+     * @return The side index in the the given item
+     */
     handleToSide: function(item, handle) {
         side_xs = [
             {side:0, x:item.item.segments[0].point.x},
@@ -465,10 +593,25 @@ _.extend(Representation.prototype, {
         return side_xs[(handle + 1) % 3].side;
     },
 
+    /**
+     * Mathematical sign function
+     * @param  int
+     * @return 0, -1, 1 or NaN
+     */
     sign: function(x) {
         return typeof x === 'number' ? x ? x < 0 ? -1 : 1 : x === x ? 0 : NaN : NaN;
     },
 
+    /**
+     * Add a triangle to the MenuGrid
+     * @param Path
+     * @param int
+     * @param int
+     * @param bool upward: is this triangle upward or downward
+     * @param list tags: a list of tags applied to this menu item
+     * @param object
+     * @param MenuGridItem
+     */
     addTriangleToGrid: function(triangle, x, y, upward, tags, options, parent) {
         if (_.isUndefined(options))
             options = {};
@@ -485,6 +628,12 @@ _.extend(Representation.prototype, {
         return item;
     },
 
+    /**
+     * return the offset of a text element inside a triangle based on a default
+     * placement value or a given verticalPlacement
+     * @param  MenuGridItem
+     * @return Point
+     */
     textInTriangleOffset: function(menu_item) {
         if (_.isNull(menu_item.options.verticalPlacement)) {
             // no placement information, try to center it.
@@ -502,6 +651,12 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * return the offset of an icon element inside a triangle based on a default
+     * placement value or a given verticalPlacement
+     * @param  MenuGridItem
+     * @return Point
+     */
     imageInTriangleOffset: function(menu_item) {
         if (_.isNull(menu_item.options.verticalPlacement)) {
             // no placement information, try to center it.
@@ -519,6 +674,10 @@ _.extend(Representation.prototype, {
         }
     },
 
+    /**
+     * Draw a menu_item's background image and add animation if the option exists
+     * @param  MenuGridItem
+     */
     drawBackgroundImage: function(menu_item) {
         var bg_image = new Raster(menu_item.options.bgImage);
         bg_image.position = menu_item.item.position;
@@ -541,6 +700,8 @@ _.extend(Representation.prototype, {
                                        menu_item.options.bgImageScrollSpeed;
             }
         }
+
+        // use the triangle as it's own image mask
         var clip_group = new Group(menu_item.item, bg_image);
         clip_group.clipped = true;
         this.tiles.addChild(clip_group);
@@ -549,6 +710,10 @@ _.extend(Representation.prototype, {
     eventHandler: function(menu_item, event) {
         if (_.isNull(menu_item.id))
             return;
+        /**
+         * not using the live_img_blur for now, no way to remove it when modal
+         * is closed because of scoping issues with paperjs
+         */
         // if (!this.live_img_blur) {
         //     this.createBlurImage();
         // }
@@ -556,6 +721,10 @@ _.extend(Representation.prototype, {
         menu_item.eventHandler(event);
     },
 
+    /**
+     * Create the blured out version of the live_img and add the transition
+     * animation
+     */
     createBlurImage: function() {
         this.live_img_blur = this.live_img.clone();
         this.live_img_blur.opacity = 0;
@@ -578,6 +747,13 @@ _.extend(Representation.prototype, {
     }
 });
 
+/**
+ * These shouldn't be here ! This file is supposed to define the library
+ * but because of the scoping issue in paperjs the classes are not visible
+ * outside of this paperscript. one solution is to abandon using the paperscript
+ * all together and use javascript and proper scoping for the paperjs functions.
+ * I might fix this in the future.
+ */
 representation = new Representation();
 representation.init();
 // register events

@@ -1,0 +1,102 @@
+{% extends "zinnia/skeleton.html" %}
+{% load zinnia_tags i18n %}
+
+{% block meta-keywords %}{% get_tags as entry_tags %}{{ entry_tags|join:", "}}{% endblock meta-keywords %}
+
+{% block meta %}
+    <meta name="generator" content="Zinnia {{ ZINNIA_VERSION }}" />
+{% endblock meta %}
+
+{% block link %}
+    <link rel="index" href="{% url 'zinnia_entry_archive_index' %}" />
+    <link rel="author" type="text/plain" href="{% url 'zinnia_humans' %}" />
+    <link rel="EditURI" type="application/rsd+xml" href="{% url 'zinnia_rsd' %}" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="{% url 'zinnia_wlwmanifest' %}" />
+    <link rel="search" type="application/opensearchdescription+xml" title="Zinnia's Blog" href="{% url 'zinnia_opensearch' %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of latest entries" %}" href="{% url 'zinnia_entry_latest_feed' %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of latest discussions" %}" href="{% url 'zinnia_discussion_latest_feed' %}" />
+    {% get_archives_entries "zinnia/tags/archives_entries_link.html" %}
+{% endblock link %}
+
+{% block breadcrumbs %}
+  {% zinnia_breadcrumbs %}
+{% endblock breadcrumbs %}
+
+{% block sidebar %}
+<!-- not planning on using categories
+<div id="widget-categories" class="widget">
+  <h4>{% trans "Categories" %}</h4>
+  {% get_categories %}
+</div>
+-->
+<!-- not planning on having multiple authors
+<div id="widget-authors" class="widget">
+  <h4>{% trans "Authors" %}</h4>
+  {% get_authors %}
+</div>
+-->
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Calendar" %}</div>
+  <div class="panel-body"> {% get_calendar_entries %} </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Tags" %}</div>
+  <div class="panel-body"> {% get_tag_cloud %} </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Recent entries" %}</div>
+  <div class="panel-body"> {% get_recent_entries %} </div>
+</div>
+<!--
+<div id="widget-comments" class="widget">
+  <h4>{% trans "Recent comments" %}</h4>
+  {% get_recent_comments %}
+</div>
+<div id="widget-linkbacks" class="widget">
+  <h4>{% trans "Recent linkbacks" %}</h4>
+  {% get_recent_linkbacks %}
+</div>
+<div id="widget-randoms" class="widget">
+  <h4>{% trans "Random entries" %}</h4>
+  {% get_random_entries %}
+</div>
+-->
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Popular entries" %}</div>
+  <div class="panel-body"> {% get_popular_entries %} </div>
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Archives" %}</div>
+  <div class="panel-body">{% get_archives_entries_tree %}</div>
+</div>
+{% if user.is_authenticated %}
+<div class="panel panel-default">
+  <div class="panel-heading">{% trans "Tools" %}</div>
+  <div class="panel-body">
+  <ul>
+    {% if perms.zinnia %}
+    <li>
+      <a href="{% url 'admin:app_list' 'zinnia' %}" title="{% trans "Dashboard" %}">
+        {% trans "Dashboard" %}
+      </a>
+    </li>
+    {% endif %}
+    {% if perms.zinnia.add_entry %}
+    <li>
+      <a href="{% url 'admin:zinnia_entry_add' %}" title="{% trans "Post an entry" %}">
+        {% trans "Post an entry" %}
+      </a>
+    </li>
+    {% endif %}
+    {% block admin-tools %}
+    {% endblock admin-tools %}
+    <li>
+      <a href="{% url 'admin:logout' %}" title="{% trans "Log out" %}">
+        {% trans "Log out" %}
+      </a>
+    </li>
+  </ul>
+  </div>
+</div>
+{% endif %}
+{% endblock sidebar %}

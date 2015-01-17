@@ -1,0 +1,25 @@
+{% load comments i18n widget_tweaks %}
+<form action="{% comment_form_target %}" method="post" id="comment-form">
+  <h3>{% trans "Post your comment" %}</h3>
+  <div>{% csrf_token %}</div>
+  <input type="hidden" name="next" value="{% url 'zinnia_comment_success' %}"/>
+  {% for field in form %}
+  {% if field.is_hidden %}{{ field }}{% else %}
+  {% if user.email and field.name in "namemailurl" %}{% else %}
+  <div class="form-group" {% if field.errors %}class="has-error"{% endif %} {% ifequal field.name "honeypot" %}style="display:none;"{% endifequal %}>
+    {% if field.errors %}{{ field.errors }}{% endif %}
+    {% render_field field class+="form-control" %}
+  </div>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% if user.is_authenticated %}
+  <p class="auth">
+    {% trans "Comment as" %} <strong>{% firstof user.get_full_name user.username %}</strong>. <a href="{% url 'admin:logout' %}">{% trans "Log out" %}</a>.
+  </p>
+  {% endif %}
+  <p class="submit">
+    <input type="submit" name="submit" class="submit-post btn btn-primary" value="{% trans "Post" %}" />
+    <input type="submit" name="preview" class="submit-preview btn btn-default" value="{% trans "Preview" %}" />
+  </p>
+</form>
