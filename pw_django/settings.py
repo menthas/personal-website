@@ -10,7 +10,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Behrooz Afghahi', 'behrooz.afghahi@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -140,6 +140,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.comments',
+    'contact_form',
     'widget_tweaks',
     'tagging',
     'mptt',
@@ -186,3 +187,5 @@ APPENGINE_TOOLKIT = {
 }
 DEFAULT_FILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
 STATICFILE_STORAGE = 'appengine_toolkit.storage.GoogleCloudStorage'
+DEFAULT_FROM_EMAIL = 'no-reply@bafghahi.com'
+DEFAULT_FROM_EMAIL

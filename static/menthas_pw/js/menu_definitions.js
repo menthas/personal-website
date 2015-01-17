@@ -1,7 +1,8 @@
 /**
- * 0. remove facebook / add g+
- * 4. figure out projects
- * 6. stack over-flow
+ * This file hosts the definitions of the menu items. it's best if this file
+ * was generated on the server side since many url's are now duplicated across
+ * HTML files.
+ * @todo move to django
  */
 
 var menu_definition = [
@@ -34,7 +35,7 @@ var menu_definition = [
         showModal: 'aboutModal',
         randomColor: true,
     },
-    { // ?????
+    { // link to zinnia
         id: 'blog',
         name: 'Blog',
         link: '/weblog',

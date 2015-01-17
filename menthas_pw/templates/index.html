@@ -2,10 +2,13 @@
 <html lang="en">
 {% load staticfiles %}
   <head>
+    <meta name="robots" content="follow, all" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>take1</title>
+    <meta name="description" content="This is my personal website, you can get in touch with me and see what I'm currently doing here !" />
+    <meta name="keywords" content="personal website, blog, contact, behrooz afghahi, projects, social media, about, developer, data, computer engineer" />
+    <title>Behrooz Afghahi's website</title>
     <link rel="shortcut icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
     <link rel="icon" href="{% static 'menthas_pw/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
@@ -24,7 +27,7 @@
     <!-- Modals -->
     <!-- Contact Form modal -->
     <div class="modal fade needs_init_modal" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true"
-         data-url="{% url 'menthas_pw.views.contact' %}">
+         data-url="{% url 'contact_form' %}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -68,15 +71,30 @@
     </div> <!-- end of projects modal -->
     <!-- end of modals -->
     
-    <img src="{% static 'menthas_pw/images/31dec2014_1.jpg' %}" alt="init" class="invisible" id="init_img"/>
+    <img src="" alt="init" class="invisible" id="init_img"/>
     <img src="{% static 'menthas_pw/images/clouds.jpg' %}" class="invisible" id="clouds"/>
-    <img src="{% static 'menthas_pw/images/31dec2014_2.jpg' %}" alt="live" class="invisible" id="live_img"/>
+    <img src="" alt="live" class="invisible" id="live_img"/>
     <img src="{% static 'menthas_pw/images/linkedin_64_black.png' %}" class="invisible" id="icon_linkedin"/>
     <img src="{% static 'menthas_pw/images/github_64_black.png' %}" class="invisible" id="icon_github"/>
     <img src="{% static 'menthas_pw/images/facebook_128_black.png' %}" class="invisible" id="icon_facebook"/>
 
     <!-- Libraries & dependencies -->
     <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
+    <script type="text/javascript">
+      var init_img = document.getElementById('init_img');
+      var live_img = document.getElementById('live_img');
+      var width = $(window).width();
+      if (width <= 800) {
+        init_img.src = "{% static 'menthas_pw/images/initbg_sm.jpg' %}";
+        live_img.src = "{% static 'menthas_pw/images/livebg_sm.jpg' %}";
+      } else if (width <= 1200) {
+        init_img.src = "{% static 'menthas_pw/images/initbg_md.jpg' %}";
+        live_img.src = "{% static 'menthas_pw/images/livebg_md.jpg' %}";
+      } else {
+        init_img.src = "{% static 'menthas_pw/images/initbg_lg_op.jpg' %}";
+        live_img.src = "{% static 'menthas_pw/images/livebg_lg_op.jpg' %}";
+      }
+    </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="{% static 'menthas_pw/js/paperjs_blur.js' %}"></script>
     <script src="{% static 'menthas_pw/js/underscore.js' %}"></script>

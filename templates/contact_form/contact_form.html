@@ -7,18 +7,19 @@
         <p>You can also fill the form below which will send me an email with your message.</p>
     </div>
   </div>
-  <form>
+  <form method="post" action="{{ request.get_full_path }}">
+    {% csrf_token %}
     <div class="form-group">
       <label for="contact_title" class="control-label">Title</label>
-      <input type="text" class="form-control" id="contact_title">
+      <input type="text" class="form-control" id="contact_title" name="name">
     </div>
     <div class="form-group">
       <label for="contact_contact" class="control-label">How can I reach you back?</label>
-      <input type="text" class="form-control" id="contact_contact" placeholder="Email, phone number, etc.">
+      <input type="text" class="form-control" id="contact_contact" placeholder="Email, phone number, etc." name="email">
     </div>
     <div class="form-group required">
       <label for="contact_message" class="control-label">Message</label>
-      <textarea class="form-control" id="contact_message" rows="6"></textarea>
+      <textarea class="form-control" id="contact_message" rows="6" name="body"></textarea>
     </div>
     <button type="submit" class="btn btn-primary"> Send Message</button>
   </form>

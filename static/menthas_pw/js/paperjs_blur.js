@@ -1,3 +1,8 @@
+/**
+ * This is my port of Mario's blur function to paperjs.
+ * @todo clean up the code
+ * @author Behrooz Afghahi (Menthas)
+ */
 /*
 
 StackBlur - a fast almost Gaussian Blur For Canvas
