@@ -225,9 +225,9 @@ _.extend(MenuGrid.prototype, {
 function Representation() {
     this.image_center_ratio = 0.028125;
     this.triangle_speed = 5;
-    this.initial_animation_halt = 0;//120;
+    this.initial_animation_halt = 80;//120;
     this.image_flash_duration = 0//;60;
-    this.image_opacity_duration = 10;//100;
+    this.image_opacity_duration = 100;//100;
     this.text_in_triangle_offset_upward = 0.03;
     this.text_in_triangle_offset_downward = -0.01;
     this.image_in_triangle_offset_upward = 0.03;
@@ -240,6 +240,7 @@ function Representation() {
     this.init_tile;
     this.tiles;
     this.grid = new MenuGrid();
+    this.animated = false;
 }
 
 _.extend(Representation.prototype, {
@@ -248,6 +249,10 @@ _.extend(Representation.prototype, {
      * mouse over events, etc.
      */
     init: function() {
+        this.animated = (
+            Modernizr.localstorage && localStorage.getItem('_animated') == 'true'
+        );
+        this.setAnimationIsShown(true);
         this.init_img = new Raster('init_img');
         this.init_img.position = view.center;
         var tile0 = new Path.RegularPolygon({
@@ -360,7 +365,7 @@ _.extend(Representation.prototype, {
         this.live_img.opacity = 0;
         this.rescale();
 
-        var total_animation_len = 
+        var total_animation_len =
             this.initial_animation_halt +
             this.image_flash_duration +
             this.image_opacity_duration;
@@ -387,7 +392,7 @@ _.extend(Representation.prototype, {
                 this.onFrame = null;
             }
         }
-        
+
     },
 
     /**
@@ -576,7 +581,7 @@ _.extend(Representation.prototype, {
      *         . (0)
      *    (2) . . (1)
      *  3. a side is the reference to a segment in the Path that forms the triangle.
-     *     This can change since we transform triangles to create clones. 
+     *     This can change since we transform triangles to create clones.
      * @param  MenuGridItem
      * @param  int
      * @return The side index in the the given item
@@ -744,7 +749,19 @@ _.extend(Representation.prototype, {
             this.sendToBack();
             this.start_animation = false;
         }
-    }
+    },
+
+    /**
+     * Set a stateful flag that will let us know the animation was shown
+     * for this user.
+     * @param bool
+     */
+    setAnimationIsShown: function(value) {
+        if (Modernizr.localstorage) {
+            localStorage.setItem('_animated', value);
+            this.animated = value;
+        }
+    },
 });
 
 /**

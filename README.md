@@ -2,7 +2,7 @@ personal-website
 ================
 This is the first version of my personal website and my attempt to fiddle with
 `<canvas>`, [Django](https://www.djangoproject.com/) and [Google App Engine](https://cloud.google.com/appengine/).
-Feel Free to use any or all of the components for your projects, everything I added is under GLP V2.
+Feel Free to use any or all of the components for your projects, everything I added is under GPL2.
 At the time of this writing you can see a live version of this code at [bafghahi.com](http://bafghahi.com).
 
 ## Structure Overview

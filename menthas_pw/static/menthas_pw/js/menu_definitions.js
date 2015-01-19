@@ -44,7 +44,7 @@ var menu_definition = [
     { // link to pdf
         id: 'resume',
         name: 'Résumé',
-        link: '/static/menthas_pw/assets/resume_latest.pdf',
+        link: '/static/menthas_pw/assets/behrooz_afghahi_resume.pdf',
         randomColor: true,
     },
     { // simgple form
