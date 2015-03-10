@@ -56,6 +56,7 @@ var menu_definition = [
     { // dials
         id: 'skills',
         name: 'Skills',
+        showModal: 'skillsModal',
         randomColor: true,
     },
     {

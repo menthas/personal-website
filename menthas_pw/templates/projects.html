@@ -3,26 +3,50 @@
   <div class="row">
     <nav id="projects_nav" class="col-md-3">
       <ul class="list-group" id="nav_list">
-        <li class="list-group-item"><a href="#project_1">Cras justo odio</a></li>
-        <li class="list-group-item"><a href="#project_2">Dapibus ac facilisis in</a></li>
-        <li class="list-group-item"><a href="#project_3">Morbi leo risus</a></li>
+        <li class="list-group-item"><a href="#project_1">Mood Music</a></li>
+        <li class="list-group-item"><a href="#project_2">The Heart</a></li>
+        <li class="list-group-item"><a href="#project_3">Log Analyzer</a></li>
+        <li class="list-group-item"><a href="#project_4">Javascript MapReduce</a></li>
+        <li class="list-group-item"><a href="#project_5">Music Visualizer</a></li>
       </ul>
     </nav>
     <div class="col-md-9">
       <article id="project_1">
-        <h2>Project 1</h2>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque metus massa, elementum vitae est quis, varius tincidunt erat. Suspendisse porttitor mauris nec molestie dignissim. Donec pharetra metus mi, ac lacinia neque molestie non. Fusce eleifend dignissim gravida. Curabitur nec nulla et felis elementum semper. Sed in est interdum, dignissim elit condimentum, consectetur arcu. Phasellus tincidunt mauris eros, vitae tincidunt metus euismod pellentesque. Nullam felis metus, imperdiet in ante at, porttitor euismod orci. Ut lobortis, ante id elementum dignissim, dolor justo ultrices nulla, scelerisque euismod metus felis id nibh. Quisque sit amet tincidunt ligula, id dictum nisi. Morbi faucibus posuere fringilla.</p>
-        <p>Etiam sit amet eleifend nunc, at auctor diam. Praesent eget nunc nibh. Donec nulla mauris, fringilla et risus pretium, convallis porta risus. Praesent facilisis tempor ipsum. Proin sit amet risus in magna tincidunt mollis vel ac magna. In ipsum ante, porta at neque eu, lacinia sagittis justo. Integer a nunc facilisis, sagittis lacus ac, vehicula dui. Aliquam faucibus non nisl porttitor ornare. Donec sem lectus, consectetur at tempus eu, egestas et nisi. Duis a diam eu leo feugiat volutpat. Nulla finibus ornare mauris quis scelerisque. Pellentesque ut elit quis eros tempor efficitur. Praesent id condimentum est, vitae porttitor nunc. Etiam elementum augue ligula, nec fringilla massa consectetur quis.</p>
+        <h2>Mood Music</h2>
+        <p>This was a academic project to see how much accuracy we can get if we abandon all contextual data
+        when recommending music to users. That is, lets not look at the artist
+        name, genre, year, related artists and the like and only use the song itself. For this we used the great <a href="http://the.echonest.com/" target="_blank" title="EchoNest Website">EchoNest</a> API in conjunction with a semi-supervised learning algorithm (scikit-learn).</p>
+        <p>The final application asks you to create a new playlist and add some songs to it. It will then start recommending songs from your library
+        based on the trends it finds in the original songs.
+        The conclusion was, Although the recommender system made some errors (in fact more than the contextual counterpart) it breached the boundaries
+        of genre and recommended song regardless of artists. For example if you create a <i>rainy day</i> playlist, you will get both low tempo, atmospheric electronic songs and instrumental melancholy post rock songs.</p>
+        <ul>
+          <li>See a demo video <a href="https://www.youtube.com/watch?v=2Hq4TCDFeCI" target="_blank">on YouTube</a>.</li>
+          <li>Source code <a href="https://github.com/menthas/MoodMusic">at github</a>.</li>
+        </ul>
       </article>
       <article id="project_2">
-        <h2>Project 2</h2>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque metus massa, elementum vitae est quis, varius tincidunt erat. Suspendisse porttitor mauris nec molestie dignissim. Donec pharetra metus mi, ac lacinia neque molestie non. Fusce eleifend dignissim gravida. Curabitur nec nulla et felis elementum semper. Sed in est interdum, dignissim elit condimentum, consectetur arcu. Phasellus tincidunt mauris eros, vitae tincidunt metus euismod pellentesque. Nullam felis metus, imperdiet in ante at, porttitor euismod orci. Ut lobortis, ante id elementum dignissim, dolor justo ultrices nulla, scelerisque euismod metus felis id nibh. Quisque sit amet tincidunt ligula, id dictum nisi. Morbi faucibus posuere fringilla.</p>
-        <p>Etiam sit amet eleifend nunc, at auctor diam. Praesent eget nunc nibh. Donec nulla mauris, fringilla et risus pretium, convallis porta risus. Praesent facilisis tempor ipsum. Proin sit amet risus in magna tincidunt mollis vel ac magna. In ipsum ante, porta at neque eu, lacinia sagittis justo. Integer a nunc facilisis, sagittis lacus ac, vehicula dui. Aliquam faucibus non nisl porttitor ornare. Donec sem lectus, consectetur at tempus eu, egestas et nisi. Duis a diam eu leo feugiat volutpat. Nulla finibus ornare mauris quis scelerisque. Pellentesque ut elit quis eros tempor efficitur. Praesent id condimentum est, vitae porttitor nunc. Etiam elementum augue ligula, nec fringilla massa consectetur quis.</p>
+        <h2>The Heart</h2>
+        <p>The Heart is one of my current projects. The idea is to create a personalized device that reacts to a certain voice (which can be trained).
+        In the first version the device will only react to the voice and show <i>emotions</i> when it hears certain phrases but the idea can be taken further
+        in the future versions.</p>
+        <p>This is going to be built on top of <a href="http://www.raspberrypi.org/" target="_blank">Raspberry Pi</a> a small computer with memory
+        management (running Linux). And the work of Xinyu Zhou Et al.</p>
+        <ul>
+          <li>Current Source <a href="https://github.com/menthas/speaker-recognition">at github</a>.</li>
+        </ul>
       </article>
       <article id="project_3">
-        <h2>Project 3</h2>
-        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque metus massa, elementum vitae est quis, varius tincidunt erat. Suspendisse porttitor mauris nec molestie dignissim. Donec pharetra metus mi, ac lacinia neque molestie non. Fusce eleifend dignissim gravida. Curabitur nec nulla et felis elementum semper. Sed in est interdum, dignissim elit condimentum, consectetur arcu. Phasellus tincidunt mauris eros, vitae tincidunt metus euismod pellentesque. Nullam felis metus, imperdiet in ante at, porttitor euismod orci. Ut lobortis, ante id elementum dignissim, dolor justo ultrices nulla, scelerisque euismod metus felis id nibh. Quisque sit amet tincidunt ligula, id dictum nisi. Morbi faucibus posuere fringilla.</p>
-        <p>Etiam sit amet eleifend nunc, at auctor diam. Praesent eget nunc nibh. Donec nulla mauris, fringilla et risus pretium, convallis porta risus. Praesent facilisis tempor ipsum. Proin sit amet risus in magna tincidunt mollis vel ac magna. In ipsum ante, porta at neque eu, lacinia sagittis justo. Integer a nunc facilisis, sagittis lacus ac, vehicula dui. Aliquam faucibus non nisl porttitor ornare. Donec sem lectus, consectetur at tempus eu, egestas et nisi. Duis a diam eu leo feugiat volutpat. Nulla finibus ornare mauris quis scelerisque. Pellentesque ut elit quis eros tempor efficitur. Praesent id condimentum est, vitae porttitor nunc. Etiam elementum augue ligula, nec fringilla massa consectetur quis.</p>
+        <h2>Log Analyzer</h2>
+        <p>Details coming as soon as I get time to write gather and type them.</p>
+      </article>
+      <article id="project_4">
+        <h2>Javascript MapReduce</h2>
+        <p>Details coming as soon as I get time to write gather and type them.</p>
+      </article>
+      <article id="project_5">
+        <h2>Music Visualizer</h2>
+        <p>Details coming as soon as I get time to write gather and type them.</p>
       </article>
     </div>
   </div>

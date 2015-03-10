@@ -22,7 +22,7 @@ so it's best if you do it the right way. I will fix this in the future versions.
 **./appengine_config.py** this file is picked up by GAE when the app is being initialized. I'm using it to
 inject the `libs` directory into `PYTHONPATH` and to fix an issue with GAE and python's `intercept` library.
 
-**./mysel_dev.cnf** I used two different databases for dev and prod (which is the better option) and this file
+**./mysql_dev.cnf** I used two different databases for dev and prod (which is the better option) and this file
 will be picked up automaticaly when on a local environment. add your local mysql creds to this file.
 
 **./requirements.txt** list of python packages required for this project. This file represents the stack that
