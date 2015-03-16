@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+  <head>
+   <meta name="robots" content="follow, all" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VzA - Music Visualization V1.0</title>
+    <link rel="stylesheet" href="{% static 'menthas_pw/vza/style/main.css' %}">
+
+    <script type="text/javascript">
+      var swf_url = "{% static 'menthas_pw/vza/js/soundmanager2/swf/' %}";
+    </script>
+
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+    <script src="{% static 'menthas_pw/vza/js/soundmanager2/script/soundmanager2.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/build/three.min.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/underscore.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
+
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/shaders/CopyShader.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/shaders/BokehShader.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/postprocessing/EffectComposer.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/postprocessing/RenderPass.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/postprocessing/ShaderPass.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/postprocessing/MaskPass.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/three.js-r70/examples/js/postprocessing/BokehPass.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/v1.js' %}"></script>
+    <script src="{% static 'menthas_pw/vza/js/audio.js' %}"></script>
+  </head>
+  <body>
+    <img src="{% static 'menthas_pw/vza/images/sc_square_66.png' %}" class="hidden" id="soundcloud_logo">
+    <div id="preloaded">
+      <h4>Search for your music</h4>
+      <p>Turn up the volume and enjoy</p>
+      <span>The default music will start in 3 seconds</span>
+    </div>
+    <div id="search_box">
+      <div id="search">
+        <img src="{% static 'menthas_pw/vza/images/sc_grey_36x20.png' %}" alt="Powered By SoundCloud">
+        <input type="text" id="search_val" placeholder="Search on SoundCloud ..." size="40">
+        <img src="{% static 'menthas_pw/vza/images/pause.jpg' %}" alt="Pause" id="pause" class="hidden">
+        <img src="{% static 'menthas_pw/vza/images/play.png' %}" alt="Play" id="play" class="hidden">
+        <img src="{% static 'menthas_pw/vza/images/ajax-loader.gif' %}" alt="Loading ..." id="load_img" class="hidden">
+      </div>
+      <div id="results" class="hidden">
+        <ul id="result_list">
+        </ul>
+      </div>
+    </div>
+
+    <script src="{% static 'menthas_pw/vza/js/application.js' %}"></script>
+  </body>
+</html>

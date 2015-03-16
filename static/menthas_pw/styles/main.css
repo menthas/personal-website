@@ -24,3 +24,9 @@ body {
 #nav_list {
     position: relative;
 }
+
+.gauges {
+    width: 150px;
+    height: 80px;
+    margin-left: -15px;
+}

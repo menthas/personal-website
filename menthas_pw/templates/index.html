@@ -69,6 +69,21 @@
         </div>
       </div>
     </div> <!-- end of projects modal -->
+
+    <!-- Skills modal -->
+    <div class="modal fade needs_init_modal" id="skillsModal" tabindex="-1" role="dialog" aria-labelledby="skillsModalLabel" aria-hidden="true"
+         data-url="{% url 'menthas_pw.views.skills' %}">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="skillsModalLabel">Skills</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div> <!-- end of skills modal -->
     <!-- end of modals -->
     
     <img src="" alt="init" class="invisible" id="init_img"/>
@@ -80,6 +95,7 @@
 
     <!-- Libraries & dependencies -->
     <script src="{% static 'menthas_pw/js/jquery.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/modernizr.js' %}"></script>
     <script type="text/javascript">
       var init_img = document.getElementById('init_img');
       var live_img = document.getElementById('live_img');
@@ -104,5 +120,7 @@
     <!-- Code to render the canvas -->
     <script src="{% static 'menthas_pw/js/menu_definitions.js' %}"></script>
     <script src="{% static 'menthas_pw/js/canvas_lib.js' %}" type="text/paperscript" data-paper-canvas="main_canvas"></script>
+    <script src="{% static 'menthas_pw/js/raphael.2.1.0.min.js' %}"></script>
+    <script src="{% static 'menthas_pw/js/justgage.1.0.1.min.js' %}"></script>
   </body>
 </html>
