@@ -19,3 +19,7 @@ def projects(request):
 
 def skills(request):
     return render(request, 'skills.html', {})
+
+
+def vza(request):
+    return render(request, 'vza.html', {})
